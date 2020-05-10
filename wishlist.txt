@@ -1,0 +1,5 @@
++ file downloading
+- downloader refactor (to static class)
+- file unzipping
+- logger
+- progress bar of the file being downloaded

@@ -18,3 +18,6 @@ build/
 # Roslyn cache directories
 *.ide/
 .vs/
+
+# Other
+wishlists.txt
