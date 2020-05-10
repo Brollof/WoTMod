@@ -7,31 +7,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CWoTbyt", "CWoTbyt.vcxproj"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Itanium = Debug|Itanium
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|Itanium = Release|Itanium
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-		ReleaseWithoutAsm|Itanium = ReleaseWithoutAsm|Itanium
-		ReleaseWithoutAsm|x64 = ReleaseWithoutAsm|x64
 		ReleaseWithoutAsm|x86 = ReleaseWithoutAsm|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Debug|Itanium.ActiveCfg = Debug|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Debug|x64.ActiveCfg = Debug|x64
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Debug|x64.Build.0 = Debug|x64
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Debug|x86.ActiveCfg = Debug|Win32
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Debug|x86.Build.0 = Debug|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Release|Itanium.ActiveCfg = Release|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Release|x64.ActiveCfg = Release|x64
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Release|x64.Build.0 = Release|x64
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Release|x86.ActiveCfg = Release|Win32
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.Release|x86.Build.0 = Release|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|Itanium.ActiveCfg = Release|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|Itanium.Build.0 = Release|Win32
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|x64.ActiveCfg = Release|x64
-		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|x64.Build.0 = Release|x64
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|x86.ActiveCfg = Release|Win32
 		{D9434B4A-84D0-48A7-8646-836220EA41D4}.ReleaseWithoutAsm|x86.Build.0 = Release|Win32
 	EndGlobalSection
