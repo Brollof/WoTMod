@@ -1,19 +1,19 @@
 #pragma once
-#include <iostream>
+
+#include <string>
 
 class TempDownloader
 {
 private:
-	std::string m_Url;
-	std::string m_OutPath;
-	std::string m_Filename;
-	bool m_DownloadOk;
+  std::string m_url;
+  std::string m_outPath;
+  std::string m_filename;
 
 public:
-	TempDownloader(const std::string& url);
-	virtual ~TempDownloader();
-	int Download();
-	const std::string& GetFilename() const { return m_Filename; }
-	const std::string& GetOutPath() const { return m_OutPath; }
+  TempDownloader(const std::string& url);
+  virtual ~TempDownloader();
+  bool Download();
+  const std::string& GetFilename() const { return m_filename; }
+  const std::string& GetOutPath() const { return m_outPath; }
 };
 

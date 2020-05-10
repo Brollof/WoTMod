@@ -1,19 +1,23 @@
+#ifdef _DEBUG
+  #define FAST_URL 1
+  #define SKIP_DOWNLOAD 0
+#endif
+
 #include <iostream>
 #include "Common.h"
 #include "TempDownloader.h"
 
-#define SKIP_DOWNLOAD
 
 int main()
 {
-#ifndef SKIP_DOWNLOAD
-	TempDownloader dl = TempDownloader(XVM_URL);
-	if (dl.Download())
-	{
-		return 1;
-	}
+#if (SKIP_DOWNLOAD == 0)
+  TempDownloader dl = TempDownloader(XVM_URL);
+  if (dl.Download() == false)
+  {
+    return 0;
+  }
 #endif
 
 
-	
+
 }
