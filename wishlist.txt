@@ -1,7 +1,0 @@
-+ file downloading
-- downloader refactor
-- file unzipping
-- logger
-- stdfx (logger)
-- progress bar of the file being downloaded (check callback param or switch to curl)
-- versioning
