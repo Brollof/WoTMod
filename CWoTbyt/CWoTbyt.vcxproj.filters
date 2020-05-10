@@ -26,5 +26,8 @@
     <ClInclude Include="inc\TempDownloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

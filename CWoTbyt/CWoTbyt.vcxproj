@@ -15,6 +15,7 @@
     <ClCompile Include="src\TempDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Common.h" />
     <ClInclude Include="inc\TempDownloader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
