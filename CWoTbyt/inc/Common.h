@@ -11,6 +11,10 @@
   #define SKIP_DOWNLOAD 0
 #endif
 
+#ifndef SKIP_EXTRACTION
+  #define SKIP_EXTRACTION 0
+#endif
+
 #if (FAST_URL == 1)
   #undef XVM_URL
   #define XVM_URL TEST_URL
