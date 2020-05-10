@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CWoTbyt.cpp">
+    <ClCompile Include="src\CWoTbyt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TempDownloader.cpp">
+    <ClCompile Include="src\TempDownloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TempDownloader.h">
+    <ClInclude Include="inc\TempDownloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
