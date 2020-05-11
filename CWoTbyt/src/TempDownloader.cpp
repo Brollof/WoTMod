@@ -18,11 +18,11 @@ TempDownloader::~TempDownloader()
 {
   if (remove(m_outPath.c_str()) == 0)
   {
-    std::cout << "File deleted" << std::endl;
+    std::cout << "Temporary ZIP file deleted" << std::endl;
   }
   else
   {
-    std::cout << "Failed to delete the file!" << std::endl;
+    std::cout << "Failed to delete the ZIP file!" << std::endl;
   }
 }
 

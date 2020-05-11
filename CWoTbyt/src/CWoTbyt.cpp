@@ -1,6 +1,6 @@
 #ifdef _DEBUG
-  #define FAST_URL 1
-  #define SKIP_DOWNLOAD 0
+  #define FAST_URL 0
+  #define SKIP_DOWNLOAD 1
   #define SKIP_EXTRACTION 1
 #endif
 
@@ -8,6 +8,7 @@
 #include "Common.h"
 #include "TempDownloader.h"
 #include "ZipExtractor.h"
+#include "WotPath.h"
 
 int main()
 {
@@ -19,10 +20,20 @@ int main()
   }
 #endif
 
+  std::string* wotPath = WotPath::GetInstallPath();
+  if (!wotPath)
+  {
+    std::cout << "WoT path read failed!" << std::endl;
+    return 0;
+  }
 
+  std::cout << "Wot path obtained: " << *wotPath << std::endl;
 #if (SKIP_EXTRACTION == 0)
   ZipExtractor ex;
-  ex.Extract(zip_file, out_dir);
+  ex.Extract(dl.GetFilePath(), *wotPath);
 #endif
 
+  delete wotPath;
+
+  std::cout << "Done." << std::endl;
 }
