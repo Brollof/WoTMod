@@ -9,9 +9,12 @@
 #include "TempDownloader.h"
 #include "ZipExtractor.h"
 #include "WotPath.h"
+#include "Log.h"
 
 int main()
 {
+  Log::Init();
+
 #if (SKIP_DOWNLOAD == 0)
   TempDownloader dl = TempDownloader(XVM_URL);
   if (dl.Download() == false)
@@ -23,7 +26,7 @@ int main()
   std::string* wotPath = WotPath::GetInstallPath();
   if (!wotPath)
   {
-    std::cout << "WoT path read failed!" << std::endl;
+    LOG_ERROR("WoT path read failed!");
     return 0;
   }
 
