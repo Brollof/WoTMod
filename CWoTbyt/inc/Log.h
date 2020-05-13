@@ -1,5 +1,9 @@
 #pragma once
 
+// Logging strategy:
+// - put everything in log file
+// - stdout only above debug level
+
 #define SPDLOG_WCHAR_TO_UTF8_SUPPORT
 
 #include "spdlog/spdlog.h"
@@ -34,4 +38,3 @@ public:
     LOG_DEBUG("Logger initialized");
   }
 };
-
