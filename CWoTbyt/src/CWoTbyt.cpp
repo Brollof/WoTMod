@@ -4,7 +4,6 @@
   #define SKIP_EXTRACTION 1
 #endif
 
-#include <iostream>
 #include "Common.h"
 #include "TempDownloader.h"
 #include "ZipExtractor.h"
@@ -30,7 +29,8 @@ int main()
     return 0;
   }
 
-  std::cout << "Wot path obtained: " << *wotPath << std::endl;
+  LOG_DEBUG("Wot path obtained: {}", *wotPath);
+
 #if (SKIP_EXTRACTION == 0)
   ZipExtractor ex;
   ex.Extract(dl.GetFilePath(), *wotPath);
@@ -38,5 +38,5 @@ int main()
 
   delete wotPath;
 
-  std::cout << "Done." << std::endl;
+  LOG_INFO("XVM updated successfully!");
 }

@@ -44,5 +44,8 @@
     <ClInclude Include="inc\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
-#include <iostream>
 #include "ZipExtractor.h"
 #include "bitexception.hpp"
+#include "Log.h"
 
 #define DLL_7Z_NAME L"7z.dll"
 
@@ -10,11 +10,12 @@ ZipExtractor::ZipExtractor()
   {
     m_lib = new bit7z::Bit7zLibrary(DLL_7Z_NAME);
     m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Zip);
-    std::cout << "ZIP extractor initialized" << std::endl;
+    LOG_DEBUG("ZIP extractor initialized");
   }
   catch (const bit7z::BitException& ex)
   {
-    std::cout << "Exception: " << ex.what() << std::endl;
+    LOG_ERROR("Extraction failed!");
+    LOG_DEBUG("Exception: {}", ex.what());
   }
 }
 
@@ -25,7 +26,7 @@ ZipExtractor::~ZipExtractor()
 
 bool ZipExtractor::Extract(const std::string &zipPath, const std::string& outDir)
 {
-  std::cout << "Extracting from file: '" << zipPath << "' to: '" << outDir << "'" << std::endl;
+  LOG_INFO("Extracting archive: '{}' to '{}'", zipPath, outDir);
   std::wstring wZipPath(zipPath.begin(), zipPath.end());
   std::wstring wOutDir(outDir.begin(), outDir.end());
 
@@ -35,10 +36,11 @@ bool ZipExtractor::Extract(const std::string &zipPath, const std::string& outDir
   }
   catch (const bit7z::BitException& ex)
   {
-    std::cout << "Exception: " << ex.what() << std::endl;
+    LOG_ERROR("Extraction failed!");
+    LOG_DEBUG("Exception: {}", ex.what());
     return false;
   }
 
-  std::cout << "Extraction successful" << std::endl;
+  LOG_DEBUG("Extraction successful");
   return true;
 }

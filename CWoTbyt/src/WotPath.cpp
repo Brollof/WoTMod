@@ -1,67 +1,66 @@
-#include <iostream>
-#include <codecvt>
 #include <fstream>
 #include "WotPath.h"
 #include "WinReg.hpp"
+#include "Log.h"
+#include "Utils.h"
 
-#define REG_PATH          L"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\WOT.EU.PRODUCTION"
-#define REG_ITEM          L"InstallLocation"
+#define REG_PATH          "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\WOT.EU.PRODUCTION"
+#define REG_ITEM          "InstallLocation"
 #define SETTINGS_FILE     "settings.cfg"
 
 std::string* WotPath::GetPathFromReg()
 {
-  std::cout << "Getting WoT path from registry... ";
+  LOG_DEBUG("Getting WoT path from registry... ");
 
-  winreg::RegKey key(HKEY_CURRENT_USER, REG_PATH);
+  winreg::RegKey key(HKEY_CURRENT_USER, STR_TO_WSTR(REG_PATH));
   if (!key.IsValid())
   {
-    std::cout << "Invalid registery key: " << REG_PATH << std::endl;
+    LOG_DEBUG("Invalid registry key: {}", REG_PATH);
     return nullptr;
   }
 
   std::wstring path;
-  winreg::RegResult res = key.TryGetStringValue(REG_ITEM, path);
+  winreg::RegResult res = key.TryGetStringValue(STR_TO_WSTR(REG_ITEM), path);
   if (res.Failed())
   {
-    std::wcout << "Can't get registry item: " << REG_ITEM << ", error code: " << res.Code() \
-    << " (check winerror.h for more details)" << std::endl;
+    LOG_DEBUG("Can't get registry item: {}, error code: {} (check winerror.h for more details)",
+      REG_ITEM, res.Code());
     return nullptr;
   }
 
-  std::string temp = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(path);
-  std::cout << "OK" << std::endl;
-  return new std::string(temp);
+  LOG_DEBUG("OK");
+  return new std::string(WSTR_TO_STR(path));
 }
 
 std::string* WotPath::GetPathFromFile()
 {
-  std::cout << "Getting WoT path from file: " << SETTINGS_FILE << "... ";
+  LOG_DEBUG("Getting WoT path from file: {}... ", SETTINGS_FILE);
   std::ifstream file(SETTINGS_FILE);
   if (!file)
   {
-    std::cout << "Can't open file! " << std::endl;
+    LOG_DEBUG("Can't open file!");
     return nullptr;
   }
 
   std::string path;
   std::getline(file, path);
   file.close();
-  std::cout << "OK" << std::endl;
+  LOG_DEBUG("OK");
   return new std::string(path);
 }
 
 void WotPath::SavePathToFile(const std::string& path)
 {
-  std::cout << "Saving WoT path to file: " << SETTINGS_FILE << "... ";
+  LOG_DEBUG("Saving WoT path to file: {}... ", SETTINGS_FILE);
   std::ofstream file(SETTINGS_FILE);
   if (!file)
   {
-    std::cout << "Can't open file! " << std::endl;
+    LOG_DEBUG("Can't open file! ");
     return;
   }
   file << path;
   file.close();
-  std::cout << "OK" << std::endl;
+  LOG_DEBUG("OK");
 }
 
 std::string* WotPath::GetInstallPath()

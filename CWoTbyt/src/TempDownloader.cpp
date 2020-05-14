@@ -1,8 +1,8 @@
-#include "TempDownloader.h"
+#include <filesystem>
 #include <urlmon.h>
 #include <WinInet.h>
-#include <filesystem>
-#include <iostream>
+#include "TempDownloader.h"
+#include "Log.h"
 
 #pragma comment(lib, "urlmon.lib")
 #pragma comment(lib, "wininet.lib")
@@ -18,33 +18,36 @@ TempDownloader::~TempDownloader()
 {
   if (remove(m_outPath.c_str()) == 0)
   {
-    std::cout << "Temporary ZIP file deleted" << std::endl;
+    LOG_DEBUG("Temporary ZIP file deleted");
   }
   else
   {
-    std::cout << "Failed to delete the ZIP file!" << std::endl;
+    LOG_DEBUG("Failed to delete the ZIP file!");
   }
 }
 
 bool TempDownloader::Download()
 {
-  std::cout << "Downloading file " << m_url << "... ";
+  LOG_INFO("Downloading file {}... ", m_url);
 
   DeleteUrlCacheEntry(m_url.c_str());
-  HRESULT result = URLDownloadToFile(NULL, m_url.c_str(), m_outPath.c_str(), 0, NULL);
 
+  HRESULT result = URLDownloadToFile(NULL, m_url.c_str(), m_outPath.c_str(), 0, NULL);
   if (result == S_OK) {
-    std::cout << "OK\nSaved: " << m_outPath << std::endl;
+    LOG_DEBUG("Saved: {}", m_outPath);
     return true;
   }
-  else if (result == E_OUTOFMEMORY) {
-    std::cout << "Buffer length invalid, or insufficient memory" << std::endl;
+
+  LOG_INFO("Download failed!");
+
+  if (result == E_OUTOFMEMORY) {
+    LOG_DEBUG("Buffer length invalid, or insufficient memory");
   }
   else if (result == INET_E_DOWNLOAD_FAILURE) {
-    std::cout << "URL is invalid" << std::endl;
+    LOG_DEBUG("URL is invalid");
   }
   else {
-    std::cout << "Other error: " << result << std::endl;
+    LOG_DEBUG("Other error: {}", result);
   }
 
   return false;
