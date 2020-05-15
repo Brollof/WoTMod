@@ -1,5 +1,4 @@
 #ifdef _DEBUG
-  #define FAST_URL 0
   #define SKIP_DOWNLOAD 1
   #define SKIP_EXTRACTION 1
 #endif
