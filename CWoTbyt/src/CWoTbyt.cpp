@@ -38,5 +38,6 @@ int main()
 
   delete wotPath;
 
-  LOG_INFO("XVM updated successfully!");
+  LOG_INFO("XVM updated successfully!\n"); // \n for extra spacing
+  system("Pause");
 }
