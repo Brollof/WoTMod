@@ -1,6 +1,6 @@
 #ifdef _DEBUG
   #define FAST_URL 0
-  #define SKIP_DOWNLOAD 0
+  #define SKIP_DOWNLOAD 1
   #define SKIP_EXTRACTION 1
 #endif
 
@@ -9,10 +9,13 @@
 #include "ZipExtractor.h"
 #include "WotPath.h"
 #include "Log.h"
+#include "Version.h"
 
 int main()
 {
   Log::Init();
+  PrintVersion();
+  PrintBuildType();
 
 #if (SKIP_DOWNLOAD == 0)
   TempDownloader dl = TempDownloader(XVM_URL);

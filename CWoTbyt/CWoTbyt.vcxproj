@@ -20,9 +20,13 @@
     <ClInclude Include="inc\Common.h" />
     <ClInclude Include="inc\Log.h" />
     <ClInclude Include="inc\Utils.h" />
+    <ClInclude Include="inc\Version.h" />
     <ClInclude Include="inc\WotPath.h" />
     <ClInclude Include="inc\ZipExtractor.h" />
     <ClInclude Include="inc\TempDownloader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\version.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
