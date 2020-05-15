@@ -9,7 +9,7 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 #define LOGGER_NAME         "main"
-#define LOG_FILE            "wotbyt.log"
+#define LOG_FILE            "cwotbyt.log"
 #define LOG_PATTERN_REL     "[%d/%m/%Y %T.%e] %v"
 #define LOG_PATTERN_DBG     "[%d/%m/%Y %T.%e] [%l] %v"
 
