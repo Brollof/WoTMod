@@ -9,6 +9,7 @@
 #include "WotPath.h"
 #include "Log.h"
 #include "Version.h"
+#include "Utils.h"
 
 int main()
 {
@@ -20,6 +21,7 @@ int main()
   TempDownloader dl = TempDownloader(XVM_URL);
   if (dl.Download() == false)
   {
+    AppEnd();
     return 0;
   }
 #endif
@@ -28,6 +30,7 @@ int main()
   if (!wotPath)
   {
     LOG_ERROR("WoT path read failed!");
+    AppEnd();
     return 0;
   }
 
@@ -41,5 +44,6 @@ int main()
   delete wotPath;
 
   LOG_INFO("XVM updated successfully!\n"); // \n for extra spacing
-  system("Pause");
+  AppEnd();
+  return 0;
 }
