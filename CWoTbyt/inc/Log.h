@@ -43,4 +43,7 @@ public:
 
     LOG_DEBUG("Logger initialized");
   }
+
+private:
+  Log() {};
 };

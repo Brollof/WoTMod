@@ -24,7 +24,7 @@
     <ClCompile Include="src\ZipExtractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\WotPath.cpp">
+    <ClCompile Include="src\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,9 +38,6 @@
     <ClInclude Include="inc\ZipExtractor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\WotPath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

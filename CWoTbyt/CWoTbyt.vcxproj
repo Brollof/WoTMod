@@ -11,17 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\CWoTbyt.cpp" />
-    <ClCompile Include="src\WotPath.cpp" />
     <ClCompile Include="src\ZipExtractor.cpp" />
     <ClCompile Include="src\TempDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\Common.h" />
+    <ClInclude Include="inc\Config.h" />
     <ClInclude Include="inc\Log.h" />
     <ClInclude Include="inc\Utils.h" />
     <ClInclude Include="inc\Version.h" />
-    <ClInclude Include="inc\WotPath.h" />
     <ClInclude Include="inc\ZipExtractor.h" />
     <ClInclude Include="inc\TempDownloader.h" />
   </ItemGroup>
@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)inc;$(SolutionDir)libs\bit7z\include;$(SolutionDir)libs\WinReg;$(SolutionDir)libs\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inc;$(SolutionDir)libs\bit7z\include;$(SolutionDir)libs\WinReg;$(SolutionDir)libs\spdlog\include;$(SolutionDir)libs\INIReader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,7 +90,8 @@
       <AdditionalDependencies>bit7z_d.lib;spdlogd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy libs\7zip\7z.dll $(OutDir) /Y</Command>
+      <Command>copy libs\7zip\7z.dll $(OutDir) /Y
+copy settings.ini $(OutDir) /Y</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -107,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)inc;$(SolutionDir)libs\bit7z\include;$(SolutionDir)libs\WinReg;$(SolutionDir)libs\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inc;$(SolutionDir)libs\bit7z\include;$(SolutionDir)libs\WinReg;$(SolutionDir)libs\spdlog\include;$(SolutionDir)libs\INIReader</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -119,7 +120,8 @@
       <AdditionalDependencies>bit7z.lib;spdlog.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy libs\7zip\7z.dll $(OutDir) /Y</Command>
+      <Command>copy libs\7zip\7z.dll $(OutDir) /Y
+copy settings.ini $(OutDir) /Y</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
