@@ -24,9 +24,14 @@
     <ClInclude Include="inc\Version.h" />
     <ClInclude Include="inc\ZipExtractor.h" />
     <ClInclude Include="inc\TempDownloader.h" />
+    <ClInclude Include="res\ResIcon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="res\icon.rc" />
     <ResourceCompile Include="res\version.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
