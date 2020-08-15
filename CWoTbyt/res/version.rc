@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "ResVersion.h"
 #include "Version.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
@@ -28,7 +28,7 @@ LANGUAGE LANG_POLISH, SUBLANG_DEFAULT
 
 1 TEXTINCLUDE
 BEGIN
-    "resource.h\0"
+    "ResVersion.h\0"
 END
 
 2 TEXTINCLUDE
