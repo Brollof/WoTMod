@@ -16,7 +16,8 @@ SOLUTION_PATH = os.path.join(PROJECT_ROOT, "CWoTbyt.sln")
 VERSION_FILE = os.path.join(PROJECT_ROOT, "inc", "Version.h")
 FILES_TO_PACK = [
     os.path.join(PROJECT_ROOT, "bin", "Release", "CWoTbyt.exe"),
-    os.path.join(PROJECT_ROOT, "libs", "7zip", "7z.dll")
+    os.path.join(PROJECT_ROOT, "libs", "7zip", "7z.dll"),
+    os.path.join(PROJECT_ROOT, "settings.ini")
 ]
 
 def get_archive_path(file):
