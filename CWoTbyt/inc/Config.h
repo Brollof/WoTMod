@@ -15,4 +15,5 @@ private:
   static void Save();
   static std::string m_wotPath;
   static std::string m_branch;
+  static std::string m_settingsPath;
 };

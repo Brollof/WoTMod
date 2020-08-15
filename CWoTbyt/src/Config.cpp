@@ -15,6 +15,7 @@
 
 std::string Config::m_wotPath = "";
 std::string Config::m_branch = "";
+std::string Config::m_settingsPath = "";
 
 const std::string* Config::GetPathFromReg()
 {
@@ -42,12 +43,13 @@ const std::string* Config::GetPathFromReg()
 
 bool Config::Load()
 {
-  LOG_DEBUG("Loading config from {}...", SETTINGS_FILE);
+  m_settingsPath = FullPath(SETTINGS_FILE);
+  LOG_DEBUG("Loading config from {}...", m_settingsPath);
 
-  INIReader reader(SETTINGS_FILE);
+  INIReader reader(m_settingsPath);
   if (reader.ParseError() != 0)
   {
-    LOG_ERROR("Can't load config file: {}", SETTINGS_FILE);
+    LOG_ERROR("Can't load config file: {}", m_settingsPath);
     return false;
   }
 
@@ -74,9 +76,9 @@ bool Config::Load()
 
 void Config::Save()
 {
-  LOG_DEBUG("Saving WoT path to file: {}... ", SETTINGS_FILE);
+  LOG_DEBUG("Saving WoT path to file: {}... ", m_settingsPath);
 
-  std::ofstream file(SETTINGS_FILE);
+  std::ofstream file(m_settingsPath);
   if (!file)
   {
     LOG_DEBUG("Can't open file! ");
