@@ -7,7 +7,7 @@ class Config
 public:
   static bool Load();
   static const std::string& GetWotPath() { return m_wotPath; }
-  static const std::string& GetBranchName() { return m_branch; }
+  static const std::string GetXvmUrl();
 
 private:
   Config() {};

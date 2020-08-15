@@ -8,6 +8,10 @@
 #define REG_PATH          "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\WOT.EU.PRODUCTION"
 #define REG_ITEM          "InstallLocation"
 #define SETTINGS_FILE     "settings.ini"
+#define XVM_STORAGE       "https://nightly.modxvm.com/download/"
+#define XVM_FILENAME      "xvm_latest.zip"
+
+// full link example: https://nightly.modxvm.com/download/master/xvm_latest.zip
 
 std::string Config::m_wotPath = "";
 std::string Config::m_branch = "";
@@ -47,8 +51,8 @@ bool Config::Load()
     return false;
   }
 
-  Config::m_wotPath = reader.Get("game", "path", "");
-  Config::m_branch = reader.Get("game", "branch", "master");
+  m_wotPath = reader.Get("game", "path", "");
+  m_branch = reader.Get("game", "branch", "master");
 
   if (Config::m_wotPath.empty())
   {
@@ -58,12 +62,13 @@ bool Config::Load()
       LOG_ERROR("WoT path read failed!");
       return false;
     }
-    Config::m_wotPath = *path;
+    m_wotPath = *path;
     delete path;
     Config::Save();
   }
 
-  LOG_DEBUG("OK");
+  LOG_DEBUG("Cfg wot path: {}", m_wotPath);
+  LOG_DEBUG("Cfg branch name: {}", m_branch);
   return true;
 }
 
@@ -79,9 +84,14 @@ void Config::Save()
   }
 
   file << "[Game]" << std::endl;
-  file << "path = " + Config::m_wotPath << std::endl;
-  file << "branch = " + Config::m_branch << std::endl;
+  file << "path = " + m_wotPath << std::endl;
+  file << "branch = " + m_branch << std::endl;
   file.close();
 
   LOG_DEBUG("OK");
+}
+
+const std::string Config::GetXvmUrl()
+{
+  return XVM_STORAGE + m_branch + "/" + XVM_FILENAME;
 }

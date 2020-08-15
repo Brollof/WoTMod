@@ -24,11 +24,6 @@ int main()
     return 0;
   }
   std::string wotPath = Config::GetWotPath();
-  std::string branch = Config::GetBranchName();
-
-  LOG_DEBUG("Cfg wot path: {}", wotPath);
-  LOG_DEBUG("Cfg branch name: {}", branch);
-
   if (wotPath.empty())
   {
     LOG_ERROR("WoT path read failed!");
@@ -37,7 +32,7 @@ int main()
   }
 
 #if (SKIP_DOWNLOAD == 0)
-  TempDownloader dl = TempDownloader(XVM_URL);
+  TempDownloader dl = TempDownloader(Config::GetXvmUrl());
   if (dl.Download() == false)
   {
     AppEnd();
