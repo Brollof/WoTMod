@@ -30,6 +30,12 @@
     <ClCompile Include="src\Http.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\XVM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WOT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\TempDownloader.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\Http.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\XVM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\WOT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

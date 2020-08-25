@@ -11,29 +11,12 @@
 #include "Utils.h"
 #include "Config.h"
 #include "Http.h"
-
-bool httpSupport = true;
+#include "XVM.h"
+#include "WOT.h"
 
 int main()
 {
   Log::Init();
-
-  Http http;
-  if (http.IsInitialized() == false)
-  {
-    LOG_DEBUG("Http module initialization failed!");
-    httpSupport = false;
-  }
-
-  std::string data = http.Get("https://nightly.modxvm.com/");
-  std::cout << data << std::endl;
-
-
-  return 0;
-
-
-
-
   PrintVersion();
   PrintBuildType();
 
@@ -42,6 +25,7 @@ int main()
     AppEnd();
     return 0;
   }
+
   std::string wotPath = Config::GetWotPath();
   if (wotPath.empty())
   {
@@ -49,9 +33,27 @@ int main()
     AppEnd();
     return 0;
   }
+ 
+  Http http;
+  std::string xvmUrl;
+ 
+  if (http.IsInitialized())
+  {
+    LOG_DEBUG("HTTP module initialized");
+    std::string data = http.Get("https://nightly.modxvm.com/");
+    xvmUrl = XVM::GetUrl(wotPath, data);
+  }
+  
+  if (xvmUrl.empty()) // fallback -> build url according to branch name in config file
+  {
+    LOG_DEBUG("XVM branch fallback -> getting from config file");
+    xvmUrl = XVM::GetUrl(Config::GetBranchName());
+  }
+
+  LOG_DEBUG("XVM url: {}", xvmUrl);
 
 #if (SKIP_DOWNLOAD == 0)
-  TempDownloader dl = TempDownloader(Config::GetXvmUrl());
+  TempDownloader dl = TempDownloader(xvmUrl);
   if (dl.Download() == false)
   {
     AppEnd();
