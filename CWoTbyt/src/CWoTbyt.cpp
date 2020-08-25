@@ -10,12 +10,30 @@
 #include "Version.h"
 #include "Utils.h"
 #include "Config.h"
+#include "Http.h"
 
+bool httpSupport = true;
 
 int main()
 {
-
   Log::Init();
+
+  Http http;
+  if (http.IsInitialized() == false)
+  {
+    LOG_DEBUG("Http module initialization failed!");
+    httpSupport = false;
+  }
+
+  std::string data = http.Get("https://nightly.modxvm.com/");
+  std::cout << data << std::endl;
+
+
+  return 0;
+
+
+
+
   PrintVersion();
   PrintBuildType();
 
