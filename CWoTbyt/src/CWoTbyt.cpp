@@ -37,17 +37,26 @@ int main()
   Http http;
   std::string xvmUrl;
  
-  if (http.IsInitialized())
+  // Branch selection algorithm
+  // 1. Check if branch is overriden - if so, use it, otherwise proceed to p.2
+  // 2. Try to fetch branch from xvm website - otherwise proceed to p.3
+  // 3. Get default branch
+
+  if (Config::IsBranchOverriden())
+  {
+    LOG_DEBUG("Branch is overriden to: {}", Config::GetBranchName());
+    xvmUrl = XVM::GetUrl(Config::GetBranchName());
+  }
+  else if (http.IsInitialized())
   {
     LOG_DEBUG("HTTP module initialized");
     std::string data = http.Get("https://nightly.modxvm.com/");
     xvmUrl = XVM::GetUrl(wotPath, data);
   }
-  
-  if (xvmUrl.empty()) // fallback -> build url according to branch name in config file
+  else
   {
-    LOG_DEBUG("XVM branch fallback -> getting from config file");
-    xvmUrl = XVM::GetUrl(Config::GetBranchName());
+    LOG_DEBUG("Using default branch");
+    xvmUrl = XVM::GetUrl();
   }
 
   LOG_DEBUG("XVM url: {}", xvmUrl);

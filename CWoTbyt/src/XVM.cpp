@@ -7,6 +7,11 @@
 #define XVM_STORAGE       "https://nightly.modxvm.com/download/"
 #define XVM_FILENAME      "xvm_latest.zip"
 
+std::string XVM::GetUrl()
+{
+  return GetUrl("master");
+}
+
 std::string XVM::GetUrl(std::string branchName)
 {
   return XVM_STORAGE + branchName + "/" + XVM_FILENAME;
