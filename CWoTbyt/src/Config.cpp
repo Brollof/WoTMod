@@ -64,6 +64,7 @@ void Config::Save()
     LOG_DEBUG("Can't open file! ");
     return;
   }
+
   // THIS IS SO UGLY! It has to be better way...
   // TODO: fix this
   file << "[Game]\n";
