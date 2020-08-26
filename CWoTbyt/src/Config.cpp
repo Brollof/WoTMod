@@ -1,4 +1,5 @@
 #include <fstream>
+#include <sstream>
 #include "Config.h"
 #include "Log.h"
 #include "Utils.h"
@@ -58,20 +59,33 @@ void Config::Save()
 {
   LOG_DEBUG("Saving WoT path to file: {}... ", m_settingsPath);
 
-  std::ofstream file(m_settingsPath);
+  std::stringstream ss;
+  std::string line;
+  std::fstream file(m_settingsPath, std::ios::in | std::ios::out);
+
   if (!file)
   {
     LOG_DEBUG("Can't open file! ");
     return;
   }
 
-  // THIS IS SO UGLY! It has to be better way...
-  // TODO: fix this
-  file << "[Game]\n";
-  file << "path = " + m_wotPath << "\n";
-  file << "# if set, this branch will be used for getting XVM\n";
-  file << "# if left empty, the default branch will be used\n";
-  file << "branch = " + m_branch << "\n";
+  while (std::getline(file, line))
+  {
+    if (line.find("path") != std::string::npos) // special case - wot path needs to be replaced
+    {
+      ss << "path = " << m_wotPath << "\n";
+    }
+    else
+    {
+      ss << line << "\n";
+    }
+  }
+
+  // Move file pointer to the beginning
+  file.clear();
+  file.seekp(0, std::ios::beg);
+ 
+  file << ss.rdbuf();
   file.close();
 
   LOG_DEBUG("OK");
