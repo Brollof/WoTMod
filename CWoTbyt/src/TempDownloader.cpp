@@ -79,23 +79,28 @@ bool TempDownloader::Download()
   DeleteUrlCacheEntry(m_url.c_str());
 
   DownloadStatusCb cb;
-  HRESULT result = URLDownloadToFile(NULL, m_url.c_str(), m_outPath.c_str(), 0, &cb);
+  uint32_t result = URLDownloadToFile(NULL, m_url.c_str(), m_outPath.c_str(), 0, &cb);
   std::cout << std::endl; // add new line because progress bar uses carriage return only
-  if (result == S_OK) {
+  if (result == S_OK)
+  {
     LOG_DEBUG("Saved: {}", m_outPath);
     return true;
   }
 
   LOG_INFO("Download failed!");
 
-  if (result == E_OUTOFMEMORY) {
+  if (result == E_OUTOFMEMORY)
+  {
     LOG_DEBUG("Buffer length invalid, or insufficient memory");
   }
-  else if (result == INET_E_DOWNLOAD_FAILURE) {
+  else if (result == INET_E_DOWNLOAD_FAILURE)
+  {
     LOG_DEBUG("URL is invalid");
   }
-  else {
-    LOG_DEBUG("Other error: {}", result);
+  else
+  {
+    LOG_DEBUG("Other error: 0x{0:X}", result);
+    LOG_DEBUG("Check for more information: https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775145(v=vs.85)");
   }
 
   return false;
