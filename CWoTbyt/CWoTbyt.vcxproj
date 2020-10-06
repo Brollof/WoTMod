@@ -16,7 +16,7 @@
     <ClCompile Include="src\Http.cpp" />
     <ClCompile Include="src\WOT.cpp" />
     <ClCompile Include="src\XVM.cpp" />
-    <ClCompile Include="src\ZipExtractor.cpp" />
+    <ClCompile Include="src\Extractor.cpp" />
     <ClCompile Include="src\TempDownloader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -28,7 +28,7 @@
     <ClInclude Include="inc\Version.h" />
     <ClInclude Include="inc\WOT.h" />
     <ClInclude Include="inc\XVM.h" />
-    <ClInclude Include="inc\ZipExtractor.h" />
+    <ClInclude Include="inc\Extractor.h" />
     <ClInclude Include="inc\TempDownloader.h" />
     <ClInclude Include="res\ResIcon.h" />
   </ItemGroup>

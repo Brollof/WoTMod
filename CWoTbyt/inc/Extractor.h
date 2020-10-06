@@ -2,11 +2,12 @@
 
 #include "bitextractor.hpp"
 
-class ZipExtractor
+class Extractor
 {
 public:
-  ZipExtractor();
-  virtual ~ZipExtractor();
+  enum Format {ZIP, RAR};
+  Extractor(Extractor::Format format);
+  virtual ~Extractor();
   bool Extract(const std::string& zipPath, const std::string& outDir);
 
 private:

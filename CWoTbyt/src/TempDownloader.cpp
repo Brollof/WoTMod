@@ -53,11 +53,8 @@ public:
   STDMETHOD(QueryInterface)(REFIID riid, void __RPC_FAR* __RPC_FAR* ppvObject) { return E_NOTIMPL; }
 };
 
-TempDownloader::TempDownloader(const std::string& url)
+TempDownloader::TempDownloader()
 {
-  m_url = url;
-  m_filename = std::filesystem::path(url).filename().string();
-  m_outPath = std::filesystem::temp_directory_path().concat(m_filename).string();
 }
 
 TempDownloader::~TempDownloader()
@@ -72,9 +69,13 @@ TempDownloader::~TempDownloader()
   }
 }
 
-bool TempDownloader::Download()
+bool TempDownloader::Download(const std::string& url)
 {
-  LOG_INFO("Downloading file {}... ", m_url);
+  LOG_INFO("Downloading file {}... ", url);
+  
+  m_url = url;
+  m_filename = std::filesystem::path(m_url).filename().string();
+  m_outPath = std::filesystem::temp_directory_path().concat(m_filename).string();
 
   DeleteUrlCacheEntry(m_url.c_str());
 

@@ -1,15 +1,22 @@
-#include "ZipExtractor.h"
+#include "Extractor.h"
 #include "bitexception.hpp"
 #include "Log.h"
 
 #define DLL_7Z_NAME L"7z.dll"
 
-ZipExtractor::ZipExtractor()
+Extractor::Extractor(Extractor::Format format)
 {
   try
   {
     m_lib = new bit7z::Bit7zLibrary(DLL_7Z_NAME);
-    m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Zip);
+    if (format == Extractor::Format::ZIP)
+    {
+      m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Zip);
+    }
+    else if (format == Extractor::Format::RAR)
+    {
+      m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Rar);
+    }
     LOG_DEBUG("ZIP extractor initialized");
   }
   catch (const bit7z::BitException& ex)
@@ -19,12 +26,13 @@ ZipExtractor::ZipExtractor()
   }
 }
 
-ZipExtractor::~ZipExtractor()
+Extractor::~Extractor()
 {
   delete m_extractor;
+  delete m_lib;
 }
 
-bool ZipExtractor::Extract(const std::string &zipPath, const std::string& outDir)
+bool Extractor::Extract(const std::string &zipPath, const std::string& outDir)
 {
   LOG_INFO("Extracting archive: '{}' to '{}'", zipPath, outDir);
   std::wstring wZipPath(zipPath.begin(), zipPath.end());

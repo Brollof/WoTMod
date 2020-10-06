@@ -5,7 +5,7 @@
 
 #include "Common.h"
 #include "TempDownloader.h"
-#include "ZipExtractor.h"
+#include "Extractor.h"
 #include "Log.h"
 #include "Version.h"
 #include "Utils.h"
@@ -64,8 +64,8 @@ int main()
   LOG_DEBUG("XVM url: {}", xvmUrl);
 
 #if (SKIP_DOWNLOAD == 0)
-  TempDownloader dl = TempDownloader(xvmUrl);
-  if (dl.Download() == false)
+  TempDownloader dl;
+  if (dl.Download(xvmUrl) == false)
   {
     AppEnd();
     return 0;
@@ -73,11 +73,21 @@ int main()
 #endif
 
 #if (SKIP_EXTRACTION == 0)
-  ZipExtractor ex;
-  ex.Extract(dl.GetFilePath(), wotPath);
+  Extractor zipEx = Extractor(Extractor::Format::ZIP);
+  zipEx.Extract(dl.GetFilePath(), wotPath);
 #endif
 
   LOG_INFO("XVM updated successfully!\n"); // \n for extra spacing
+
+  if (Config::GetMoeMod() == true)
+  {
+    LOG_INFO("Installing MoE mod...");
+    Extractor rarEx = Extractor(Extractor::Format::RAR);
+    dl.Download("http://down.wotspeak.org/756-mod_marksOnGunExtended.rar");
+    rarEx.Extract(dl.GetFilePath(), wotPath);
+  }
+
+  LOG_INFO("All mods installed!\n");
   AppEnd();
   return 0;
 }

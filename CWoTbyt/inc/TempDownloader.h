@@ -5,9 +5,9 @@
 class TempDownloader
 {
 public:
-  TempDownloader(const std::string& url);
+  TempDownloader();
   virtual ~TempDownloader();
-  bool Download();
+  bool Download(const std::string& url);
   const std::string& GetFilename() const { return m_filename; }
   const std::string& GetFilePath() const { return m_outPath; }
 

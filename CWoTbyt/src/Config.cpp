@@ -13,6 +13,7 @@ std::string Config::m_wotPath = "";
 std::string Config::m_branch = "";
 std::string Config::m_settingsPath = "";
 bool Config::m_branchOverride = false;
+bool Config::m_moe = false;
 
 bool Config::Load()
 {
@@ -28,6 +29,7 @@ bool Config::Load()
 
   m_wotPath = reader.Get("game", "path", "");
   m_branch = reader.Get("game", "branch", "");
+  m_moe = reader.GetBoolean("game", "moe", false);
 
   if (m_wotPath.empty())
   {
