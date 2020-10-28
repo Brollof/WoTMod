@@ -79,6 +79,7 @@ int main()
 
   LOG_INFO("XVM updated successfully!\n"); // \n for extra spacing
 
+#if (SKIP_DOWNLOAD == 0)
   if (Config::GetMoeMod() == true)
   {
     LOG_INFO("Installing MoE mod...");
@@ -86,6 +87,7 @@ int main()
     dl.Download("http://down.wotspeak.org/756-mod_marksOnGunExtended.rar");
     rarEx.Extract(dl.GetFilePath(), wotPath);
   }
+#endif
 
   LOG_INFO("All mods installed!\n");
   AppEnd();
