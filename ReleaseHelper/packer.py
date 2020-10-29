@@ -19,7 +19,7 @@ FILES_TO_PACK = [
     os.path.join(PROJECT_ROOT, "bin", "Release", "WoTbyte.exe"),
     os.path.join(PROJECT_ROOT, "libs", "7zip", "7z.dll"),
     os.path.join(PROJECT_ROOT, "libs", "curl", "bin", "libcurl.dll"),
-    os.path.join(PROJECT_ROOT, "settings.ini")
+    os.path.join(PROJECT_ROOT, "config.xml")
 ]
 
 
