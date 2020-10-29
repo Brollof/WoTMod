@@ -13,13 +13,12 @@ struct BranchInfo
 class XVM
 {
 public:
-  static std::string GetUrl();
-  static std::string GetUrl(std::string branchName);
-  static std::string GetUrl(std::string wotPath, std::string webContent);
-  static std::string GetXvmWebsite();
+  static std::string GetFileUrl();
+  static std::string SelectBranch();
+  static std::string GetWebBranch();
+  static std::string MakeUrl(std::string branchName);
 
 private:
   XVM() {};
   static std::vector<BranchInfo> ExtractBranchInfo(std::string text);
-
 };

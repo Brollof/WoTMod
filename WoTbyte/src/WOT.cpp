@@ -11,9 +11,8 @@
 #define WOT_VERSION_FILE  "version.xml"
 
 std::string WOT::m_wotPath = "";
-std::string WOT::m_wotVersion = "";
 
-const std::string& WOT::GetPathFromReg()
+const std::string WOT::GetPathFromReg()
 {
   LOG_DEBUG("Getting WoT path from registry... ");
 
@@ -21,7 +20,7 @@ const std::string& WOT::GetPathFromReg()
   if (!key.IsValid())
   {
     LOG_DEBUG("Invalid registry key: {}", REG_PATH);
-    return m_wotPath;
+    return "";
   }
 
   std::wstring path;
@@ -30,15 +29,15 @@ const std::string& WOT::GetPathFromReg()
   {
     LOG_DEBUG("Can't get registry item: {}, error code: {} (check winerror.h for more details)",
       REG_ITEM, res.Code());
-    return m_wotPath;
+    return "";
   }
 
-  LOG_DEBUG("OK");
   m_wotPath = std::string(WSTR_TO_STR(path));
+  LOG_DEBUG("WoT path: {}", m_wotPath);
   return m_wotPath;
 }
 
-const std::string& WOT::ExtractWotVersion(std::string wotPath)
+const std::string WOT::ExtractWotVersion(std::string wotPath)
 {
   std::string versionFilePath = (std::filesystem::path(wotPath) / WOT_VERSION_FILE).string();
   LOG_DEBUG("WoT version file path: {}", versionFilePath);
@@ -47,7 +46,7 @@ const std::string& WOT::ExtractWotVersion(std::string wotPath)
   if (!file.is_open())
   {
     LOG_DEBUG("Can't open file! {}", versionFilePath);
-    return m_wotVersion;
+    return "";
   }
   
   std::stringstream buffer;
@@ -56,18 +55,34 @@ const std::string& WOT::ExtractWotVersion(std::string wotPath)
   std::regex exp("<version>.*?(\\d+\\.\\d+\\.\\d+\\.\\d+).*?</version>");
   std::smatch match;
   std::string data = buffer.str();
+  std::string wotVersion = "";
 
   if (std::regex_search(data, match, exp))
   {
     LOG_DEBUG("regex_search for wot version succeeded");
-    m_wotVersion = match[1];
+    wotVersion = match[1];
   }
   else
   {
     LOG_DEBUG("regex_search for wot version failed!");
   }
 
-  LOG_DEBUG("wot version: {}", m_wotVersion);
+  LOG_DEBUG("wot version: {}", wotVersion);
   file.close();
-  return m_wotVersion;
+  return wotVersion;
+}
+
+const std::string WOT::GetVersion()
+{
+  std::string wotPath = GetPath();
+  return ExtractWotVersion(wotPath);
+}
+
+const std::string& WOT::GetPath()
+{
+  if (m_wotPath.empty())
+  {
+    m_wotPath = GetPathFromReg();
+  }
+  return m_wotPath;
 }

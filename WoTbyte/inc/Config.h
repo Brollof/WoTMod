@@ -1,22 +1,34 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+struct Mod
+{
+  std::string Name;
+  std::string Url;
+};
+
+struct Xvm
+{
+  std::string Branch;
+  std::string UrlBranches;
+  std::string UrlStorage;
+  std::string Filename;
+};
+
+typedef std::vector<Mod> Mods;
 
 class Config
 {
 public:
   static bool Load();
-  static const std::string& GetWotPath() { return m_wotPath; }
-  static const std::string& GetBranchName() { return m_branch; }
-  static bool IsBranchOverriden() { return m_branchOverride; }
-  static bool GetMoeMod() { return m_moe; }
+  static const Xvm& GetXvmData() { return m_xvm; }
+  static const Mods& GetModsData() { return m_mods; }
 
 private:
   Config() {};
-  static void Save();
   static std::string m_wotPath;
-  static std::string m_branch;
-  static std::string m_settingsPath;
-  static bool m_branchOverride;
-  static bool m_moe;
+  static Xvm m_xvm;
+  static Mods m_mods;
 };

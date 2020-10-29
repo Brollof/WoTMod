@@ -6,7 +6,7 @@ class Extractor
 {
 public:
   enum Format {ZIP, RAR};
-  Extractor(Extractor::Format format);
+  Extractor();
   virtual ~Extractor();
   bool Extract(const std::string& zipPath, const std::string& outDir);
 

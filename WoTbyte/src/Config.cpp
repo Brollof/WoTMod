@@ -1,94 +1,45 @@
-#include <fstream>
-#include <sstream>
 #include "Config.h"
 #include "Log.h"
-#include "Utils.h"
-#include "INIReader.h"
 #include "WOT.h"
+#include "pugixml.hpp"
 
-#define SETTINGS_FILE             "settings.ini"
-#define DEFAULT_BRANCH_NAME       "master"
+#define CONFIG_FILE             "config.xml"
 
-std::string Config::m_wotPath = "";
-std::string Config::m_branch = "";
-std::string Config::m_settingsPath = "";
-bool Config::m_branchOverride = false;
-bool Config::m_moe = false;
+Xvm Config::m_xvm;
+Mods Config::m_mods;
 
 bool Config::Load()
 {
-  m_settingsPath = FullPath(SETTINGS_FILE);
-  LOG_DEBUG("Loading config from {}...", m_settingsPath);
-
-  INIReader reader(m_settingsPath);
-  if (reader.ParseError() != 0)
+  std::string cfgPath = FullPath(CONFIG_FILE);
+  LOG_DEBUG("Loading config from '{}'...", cfgPath);
+  
+  pugi::xml_document doc;
+  pugi::xml_parse_result result = doc.load_file("config.xml");
+  if (!result)
   {
-    LOG_ERROR("Can't load config file: {}", m_settingsPath);
+    LOG_DEBUG("Can't load config file!");
     return false;
   }
 
-  m_wotPath = reader.Get("game", "path", "");
-  m_branch = reader.Get("game", "branch", "");
-  m_moe = reader.GetBoolean("game", "moe", false);
+  // Get XVM data
+  auto xvmCfg = doc.child("config").child("xvm");
+  m_xvm.Branch = xvmCfg.child("branch").text().as_string();
+  m_xvm.UrlBranches = xvmCfg.child("url_branches").text().as_string();
+  m_xvm.UrlStorage = xvmCfg.child("url_storage").text().as_string();
+  m_xvm.Filename = xvmCfg.child("filename").text().as_string();
 
-  if (m_wotPath.empty())
+  // Get mods data
+  for (pugi::xml_node xmlMod : doc.child("config").child("mods").children("mod"))
   {
-    const std::string& path = WOT::GetPathFromReg();
-    if (path.empty())
-    {
-      LOG_ERROR("WoT path read failed!");
-      return false;
-    }
-    m_wotPath = path;
-    Config::Save();
+    Mod mod;
+    mod.Name = xmlMod.child("name").text().as_string();
+    mod.Url = xmlMod.child("url").text().as_string();
+
+    LOG_DEBUG("Mod name: {}", mod.Name);
+    LOG_DEBUG("Mod url: {}", mod.Url);
+
+    m_mods.push_back(mod);
   }
 
-  if (m_branch.empty())
-  {
-    m_branch = DEFAULT_BRANCH_NAME;
-  }
-  else
-  {
-    m_branchOverride = true;
-  }
-
-  LOG_DEBUG("Cfg wot path: {}", m_wotPath);
-  LOG_DEBUG("Cfg branch name: {}", m_branch);
   return true;
-}
-
-void Config::Save()
-{
-  LOG_DEBUG("Saving WoT path to file: {}... ", m_settingsPath);
-
-  std::stringstream ss;
-  std::string line;
-  std::fstream file(m_settingsPath, std::ios::in | std::ios::out);
-
-  if (!file)
-  {
-    LOG_DEBUG("Can't open file! ");
-    return;
-  }
-
-  while (std::getline(file, line))
-  {
-    if (line.find("path") != std::string::npos) // special case - wot path needs to be replaced
-    {
-      ss << "path = " << m_wotPath << "\n";
-    }
-    else
-    {
-      ss << line << "\n";
-    }
-  }
-
-  // Move file pointer to the beginning
-  file.clear();
-  file.seekp(0, std::ios::beg);
- 
-  file << ss.rdbuf();
-  file.close();
-
-  LOG_DEBUG("OK");
 }

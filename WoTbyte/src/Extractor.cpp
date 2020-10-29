@@ -4,19 +4,12 @@
 
 #define DLL_7Z_NAME L"7z.dll"
 
-Extractor::Extractor(Extractor::Format format)
+Extractor::Extractor()
 {
   try
   {
     m_lib = new bit7z::Bit7zLibrary(DLL_7Z_NAME);
-    if (format == Extractor::Format::ZIP)
-    {
-      m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Zip);
-    }
-    else if (format == Extractor::Format::RAR)
-    {
-      m_extractor = new bit7z::BitExtractor(*m_lib, bit7z::BitFormat::Rar);
-    }
+    m_extractor = new bit7z::BitExtractor(*m_lib);
     LOG_DEBUG("ZIP extractor initialized");
   }
   catch (const bit7z::BitException& ex)

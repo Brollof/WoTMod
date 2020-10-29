@@ -10,7 +10,6 @@
 #include "Version.h"
 #include "Utils.h"
 #include "Config.h"
-#include "Http.h"
 #include "XVM.h"
 #include "WOT.h"
 
@@ -26,41 +25,20 @@ int main()
     return 0;
   }
 
-  std::string wotPath = Config::GetWotPath();
-  if (wotPath.empty())
-  {
-    LOG_ERROR("WoT path read failed!");
-    AppEnd();
-    return 0;
-  }
- 
-  Http http;
-  std::string xvmUrl;
- 
-  // Branch selection algorithm
-  // 1. Check if branch is overriden - if so, use it, otherwise proceed to p.2
-  // 2. Try to fetch branch from xvm website - otherwise proceed to p.3
-  // 3. Fallback - get default branch
+  Xvm xvm = Config::GetXvmData();
+  LOG_DEBUG("cfg - branch: {}", xvm.Branch);
+  LOG_DEBUG("cfg - filename: {}", xvm.Filename);
+  LOG_DEBUG("cfg - branches url: {}", xvm.UrlBranches);
+  LOG_DEBUG("cfg - storage url: {}", xvm.UrlStorage);
 
-  if (Config::IsBranchOverriden())
+  for (auto mod : Config::GetModsData())
   {
-    LOG_DEBUG("Branch is overriden to: {}", Config::GetBranchName());
-    xvmUrl = XVM::GetUrl(Config::GetBranchName());
-  }
-  else
-  {
-    LOG_DEBUG("HTTP module initialized");
-    std::string data = http.Get("https://nightly.modxvm.com/");
-    xvmUrl = XVM::GetUrl(wotPath, data);
+    LOG_DEBUG("cfg - mod - name: {}", mod.Name);
+    LOG_DEBUG("cfg - mod - url: {}", mod.Url);
   }
 
-  // Fallback - if everything else failed use default branch
-  if (xvmUrl.empty())
-  {
-    LOG_DEBUG("Using default branch");
-    xvmUrl = XVM::GetUrl();
-  }
-
+  // Setup XVM
+  std::string xvmUrl = XVM::GetFileUrl();
   LOG_DEBUG("XVM url: {}", xvmUrl);
 
 #if (SKIP_DOWNLOAD == 0)
@@ -73,21 +51,20 @@ int main()
 #endif
 
 #if (SKIP_EXTRACTION == 0)
-  Extractor zipEx = Extractor(Extractor::Format::ZIP);
-  zipEx.Extract(dl.GetFilePath(), wotPath);
+  Extractor zipEx = Extractor();
+  zipEx.Extract(dl.GetFilePath(), WOT::GetPath());
 #endif
 
-  LOG_INFO("XVM updated successfully!\n"); // \n for extra spacing
-
-#if (SKIP_DOWNLOAD == 0)
-  if (Config::GetMoeMod() == true)
+  for (auto mod : Config::GetModsData())
   {
-    LOG_INFO("Installing MoE mod...");
-    Extractor rarEx = Extractor(Extractor::Format::RAR);
-    dl.Download("http://down.wotspeak.org/756-mod_marksOnGunExtended.rar");
-    rarEx.Extract(dl.GetFilePath(), wotPath);
+    LOG_INFO("Installig mod: {}", mod.Name);
+    TempDownloader dl;
+    if (dl.Download(mod.Url) == false)
+    {
+      continue;
+    }
+    zipEx.Extract(dl.GetFilePath(), WOT::GetPath());
   }
-#endif
 
   LOG_INFO("All mods installed!\n");
   AppEnd();
