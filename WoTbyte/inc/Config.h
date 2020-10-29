@@ -25,10 +25,10 @@ public:
   static bool Load();
   static const Xvm& GetXvmData() { return m_xvm; }
   static const Mods& GetModsData() { return m_mods; }
+  static void Print();
 
 private:
   Config() {};
-  static std::string m_wotPath;
   static Xvm m_xvm;
   static Mods m_mods;
 };

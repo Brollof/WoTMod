@@ -43,3 +43,19 @@ bool Config::Load()
 
   return true;
 }
+
+void Config::Print()
+{
+  LOG_DEBUG("cfg - branch: {}", m_xvm.Branch);
+  LOG_DEBUG("cfg - filename: {}", m_xvm.Filename);
+  LOG_DEBUG("cfg - branches url: {}", m_xvm.UrlBranches);
+  LOG_DEBUG("cfg - storage url: {}", m_xvm.UrlStorage);
+
+  for (auto mod : m_mods)
+  {
+    LOG_DEBUG("------------------------------");
+    LOG_DEBUG("cfg - mod - name: {}", mod.Name);
+    LOG_DEBUG("cfg - mod - url: {}", mod.Url);
+    LOG_DEBUG("------------------------------");
+  }
+}

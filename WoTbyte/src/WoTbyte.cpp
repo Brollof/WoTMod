@@ -13,6 +13,27 @@
 #include "XVM.h"
 #include "WOT.h"
 
+static bool DownloadAndExtract(std::string src, std::string dst)
+{
+#if (SKIP_DOWNLOAD == 0)
+  TempDownloader dl;
+  if (dl.Download(src) == false)
+  {
+    return false;
+  }
+#else
+  LOG_DEBUG("Download skipped");
+#endif
+
+#if (SKIP_EXTRACTION == 0)
+  Extractor extractor;
+  return extractor.Extract(dl.GetFilePath(), dst);
+#else
+  LOG_DEBUG("Extraction skipped");
+#endif
+  return true;
+}
+
 int main()
 {
   Log::Init();
@@ -24,46 +45,22 @@ int main()
     AppEnd();
     return 0;
   }
-
-  Xvm xvm = Config::GetXvmData();
-  LOG_DEBUG("cfg - branch: {}", xvm.Branch);
-  LOG_DEBUG("cfg - filename: {}", xvm.Filename);
-  LOG_DEBUG("cfg - branches url: {}", xvm.UrlBranches);
-  LOG_DEBUG("cfg - storage url: {}", xvm.UrlStorage);
-
-  for (auto mod : Config::GetModsData())
-  {
-    LOG_DEBUG("cfg - mod - name: {}", mod.Name);
-    LOG_DEBUG("cfg - mod - url: {}", mod.Url);
-  }
+   
+  // Debug only
+  Config::Print();
 
   // Setup XVM
-  std::string xvmUrl = XVM::GetFileUrl();
-  LOG_DEBUG("XVM url: {}", xvmUrl);
-
-#if (SKIP_DOWNLOAD == 0)
-  TempDownloader dl;
-  if (dl.Download(xvmUrl) == false)
+  if (DownloadAndExtract(XVM::GetFileUrl(), WOT::GetPath()) == false)
   {
     AppEnd();
     return 0;
   }
-#endif
 
-#if (SKIP_EXTRACTION == 0)
-  Extractor zipEx = Extractor();
-  zipEx.Extract(dl.GetFilePath(), WOT::GetPath());
-#endif
-
+  // Setup mods
   for (auto mod : Config::GetModsData())
   {
     LOG_INFO("Installig mod: {}", mod.Name);
-    TempDownloader dl;
-    if (dl.Download(mod.Url) == false)
-    {
-      continue;
-    }
-    zipEx.Extract(dl.GetFilePath(), WOT::GetPath());
+    DownloadAndExtract(mod.Url, WOT::GetPath());
   }
 
   LOG_INFO("All mods installed!\n");
