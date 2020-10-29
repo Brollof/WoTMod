@@ -44,7 +44,7 @@ def generate_archive_name():
         if res := re.search(r"(VERSION_MAJOR|VERSION_MINOR|VERSION_REVISION)\s+(\d+)", line):
             version.append(res[2])
 
-    return "v{}.{}.{}.zip".format(*version)
+    return f"{ARCHIVE_SUBDIR.lower()}-" + "v{}.{}.{}.zip".format(*version)
 
 
 def main():
