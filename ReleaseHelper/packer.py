@@ -10,7 +10,7 @@ def get_fullpath(filename):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     return os.path.join(script_dir, filename)
 
-BUILDER_PATH = r'D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv'
+BUILDER_PATH = r'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv'
 PROJECT_ROOT = get_fullpath(r"..\WoTMod")
 ARCHIVE_SUBDIR = "WoTMod"
 SOLUTION_PATH = os.path.join(PROJECT_ROOT, "WoTMod.sln")
