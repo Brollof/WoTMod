@@ -2,11 +2,13 @@
 #include "Log.h"
 #include "WOT.h"
 #include "pugixml.hpp"
+#include <filesystem>
 
 #define CONFIG_FILE             "config.xml"
 
 Xvm Config::m_xvm;
 Mods Config::m_mods;
+std::string Config::m_wotPath;
 
 bool Config::Load()
 {
@@ -18,6 +20,14 @@ bool Config::Load()
   if (!result)
   {
     LOG_DEBUG("Can't load config file!");
+    return false;
+  }
+
+  // Get WoT installation path
+  m_wotPath = doc.child("config").child("game_path").text().as_string();
+  if (std::filesystem::exists(m_wotPath) == false)
+  {
+    LOG_ERROR("World of Tank path: '{}' doesn't exist!", m_wotPath);
     return false;
   }
 
@@ -46,6 +56,7 @@ bool Config::Load()
 
 void Config::Print()
 {
+  LOG_DEBUG("cfg - game path: {}", m_wotPath);
   LOG_DEBUG("cfg - branch: {}", m_xvm.Branch);
   LOG_DEBUG("cfg - filename: {}", m_xvm.Filename);
   LOG_DEBUG("cfg - branches url: {}", m_xvm.UrlBranches);

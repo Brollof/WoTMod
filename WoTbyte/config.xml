@@ -1,4 +1,5 @@
 <config>
+  <game_path>Z:\Games\World_of_Tanks_EU</game_path>
   <xvm>
     <branch></branch>
     <url_branches>https://nightly.modxvm.com/</url_branches>

@@ -16,4 +16,3 @@ private:
   std::string m_outPath;
   std::string m_filename;
 };
-

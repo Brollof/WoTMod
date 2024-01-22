@@ -17,7 +17,7 @@ struct Xvm
   std::string Filename;
 };
 
-typedef std::vector<Mod> Mods;
+using Mods = std::vector<Mod>;
 
 class Config
 {
@@ -25,10 +25,12 @@ public:
   static bool Load();
   static const Xvm& GetXvmData() { return m_xvm; }
   static const Mods& GetModsData() { return m_mods; }
+  static const std::string& GetWotPath() { return m_wotPath; }
   static void Print();
 
 private:
   Config() {};
   static Xvm m_xvm;
   static Mods m_mods;
+  static std::string m_wotPath;
 };

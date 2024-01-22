@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "Config.h"
 
 class WOT
 {
@@ -11,6 +12,5 @@ public:
 
 private:
   WOT() {};
-  static const std::string GetPathFromReg();
   static std::string m_wotPath;
 };

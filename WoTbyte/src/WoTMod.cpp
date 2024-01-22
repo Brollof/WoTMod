@@ -45,7 +45,7 @@ int main()
     AppEnd();
     return 0;
   }
-   
+
   // Debug only
   Config::Print();
 

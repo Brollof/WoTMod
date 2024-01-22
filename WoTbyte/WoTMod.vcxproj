@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Config.cpp" />
-    <ClCompile Include="src\WoTbyte.cpp" />
     <ClCompile Include="src\Http.cpp" />
+    <ClCompile Include="src\WoTMod.cpp" />
     <ClCompile Include="src\WOT.cpp" />
     <ClCompile Include="src\XVM.cpp" />
     <ClCompile Include="src\Extractor.cpp" />
@@ -43,9 +43,9 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{D9434B4A-84D0-48A7-8646-836220EA41D4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>WoTbyte</RootNamespace>
+    <RootNamespace>WoTMod</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>WoTbyte</ProjectName>
+    <ProjectName>WoTMod</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

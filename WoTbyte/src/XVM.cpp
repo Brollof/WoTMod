@@ -1,9 +1,10 @@
+#include <regex>
+
 #include "XVM.h"
 #include "WOT.h"
 #include "Log.h"
 #include "Http.h"
 #include "Config.h"
-#include <regex>
 
 #define DEFAULT_BRANCH      "master"
 

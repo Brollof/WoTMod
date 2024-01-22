@@ -13,4 +13,3 @@ private:
   const bit7z::Bit7zLibrary* m_lib = nullptr;
   const bit7z::BitExtractor* m_extractor = nullptr;
 };
-
