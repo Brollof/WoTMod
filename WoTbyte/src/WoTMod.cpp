@@ -63,7 +63,7 @@ int main()
     DownloadAndExtract(mod.Url, WOT::GetPath());
   }
 
-  LOG_INFO("All mods installed!\n");
+  LOG_INFO("Finished!\n");
   AppEnd();
   return 0;
 }
