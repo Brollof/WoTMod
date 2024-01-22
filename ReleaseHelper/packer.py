@@ -11,12 +11,12 @@ def get_fullpath(filename):
     return os.path.join(script_dir, filename)
 
 BUILDER_PATH = r'D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv'
-PROJECT_ROOT = get_fullpath(r"..\WoTbyte")
-ARCHIVE_SUBDIR = "WoTbyte"
-SOLUTION_PATH = os.path.join(PROJECT_ROOT, "WoTbyte.sln")
+PROJECT_ROOT = get_fullpath(r"..\WoTMod")
+ARCHIVE_SUBDIR = "WoTMod"
+SOLUTION_PATH = os.path.join(PROJECT_ROOT, "WoTMod.sln")
 VERSION_FILE = os.path.join(PROJECT_ROOT, "inc", "Version.h")
 FILES_TO_PACK = [
-    os.path.join(PROJECT_ROOT, "bin", "Release", "WoTbyte.exe"),
+    os.path.join(PROJECT_ROOT, "bin", "Release", "WoTMod.exe"),
     os.path.join(PROJECT_ROOT, "libs", "7zip", "7z.dll"),
     os.path.join(PROJECT_ROOT, "libs", "curl", "bin", "libcurl.dll"),
     os.path.join(PROJECT_ROOT, "config.xml")
