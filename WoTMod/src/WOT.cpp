@@ -1,6 +1,5 @@
 #include "WOT.h"
 #include "Log.h"
-#include "WinReg.hpp"
 #include <filesystem>
 #include <fstream>
 #include <sstream>
