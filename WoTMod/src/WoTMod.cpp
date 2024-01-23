@@ -1,6 +1,6 @@
 #ifdef _DEBUG
-  #define SKIP_DOWNLOAD 1
-  #define SKIP_EXTRACTION 1
+  #define SKIP_DOWNLOAD 0
+  #define SKIP_EXTRACTION 0
 #endif
 
 #include "Common.h"
@@ -40,7 +40,7 @@ int main()
   PrintVersion();
   PrintBuildType();
 
-  if (!Config::Load())
+  if (Config::Load() == false)
   {
     AppEnd();
     return 0;

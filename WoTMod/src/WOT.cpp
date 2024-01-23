@@ -6,8 +6,6 @@
 #include <sstream>
 #include <regex>
 
-#define REG_PATH          "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\WOT.EU.PRODUCTION"
-#define REG_ITEM          "InstallLocation"
 #define WOT_VERSION_FILE  "version.xml"
 
 std::string WOT::m_wotPath = "";
